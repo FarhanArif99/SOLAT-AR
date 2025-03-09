@@ -7,7 +7,7 @@
 
     <!-- Import A-Frame & AR.js -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/ar.js@1.7.2/aframe/build/aframe-ar-nft.min.js"></script>
 
     <style>
         body {
@@ -37,9 +37,9 @@
     </style>
 </head>
 <body>
-    
+
     <h1>Terokai Solat dalam AR</h1>
-    <p>Klik "Buka Kamera" dan arahkan kamera ke penanda AR.</p>
+    <p>Klik "Buka Kamera" untuk melihat model tanpa penanda.</p>
 
     <button class="btn" onclick="startAR()">Buka Kamera</button>
     <button class="btn" onclick="stopAR()">Tutup Kamera</button>
@@ -47,9 +47,7 @@
     <!-- AR Scene -->
     <div id="ar-container" style="display: none;">
         <a-scene embedded arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;">
-            <a-marker type="pattern" url="marker.patt">
-                <a-entity gltf-model="praying_model.glb" position="0 0 0" scale="0.5 0.5 0.5"></a-entity>
-            </a-marker>
+            <a-entity gltf-model="praying_model.glb" position="0 0 -2" scale="0.5 0.5 0.5" rotation="0 180 0"></a-entity>
             <a-entity camera></a-entity>
         </a-scene>
     </div>
