@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLAT DALAM AR</title>
+    
+    <!-- Import Fon & Ikon -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Import AR.js & A-Frame -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+    
+    <style>
+        /* Gaya Umum */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #2e003e, #ffcc00);
+            color: white;
+            position: relative;
+        }
+        
+        /* Bar Navigasi */
+        nav {
+            background: rgba(46, 0, 62, 0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+        nav .logo {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 400;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        /* Bahagian Hero */
+        .hero {
+            margin-top: 80px;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+        }
+        .hero p {
+            font-size: 18px;
+            color: lightgray;
+        }
+        .btn {
+            background: #ffcc00;
+            color: #2e003e;
+            padding: 12px 25px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: 0.3s;
+            border: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .btn:hover {
+            background: #e6b800;
+            transform: scale(1.05);
+        }
+        
+        /* Ruang Kamera */
+        .camera-section {
+            width: 100%;
+            height: 60vh;
+            background: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            border-radius: 15px;
+        }
+        .ar-container {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        
+        /* Bahagian Maklumat Bergulir */
+        .info-section {
+            background: rgba(46, 0, 62, 0.95);
+            padding: 50px 20px;
+            text-align: left;
+        }
+        .info-section h2 {
+            text-align: center;
+        }
+        .info-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <!-- Bar Navigasi -->
+    <nav>
+        <div class="logo">SOLAT DALAM AR</div>
+        <ul>
+            <li><a href="#" onclick="openCamera()">Buka Kamera</a></li>
+            <li><a href="#info">Cara Solat</a></li>
+            <li><a href="#" onclick="window.close()">Keluar</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Bahagian Hero -->
+    <div class="hero">
+        <h1>Terokai Solat dalam AR</h1>
+        <p>Alami realiti tambahan dengan visual solat</p>
+    </div>
+    
+    <!-- Ruang Kamera -->
+    <div class="camera-section">
+        <div class="ar-container" id="arScene">
+            <a-scene embedded arjs>
+                <a-marker-camera preset="hiro"></a-marker-camera>
+                <a-entity camera></a-entity>
+            </a-scene>
+        </div>
+    </div>
+    
+    <!-- Bahagian Maklumat Bergulir -->
+    <div class="info-section" id="info">
+        <h2>Cara Solat - Lima Waktu Solat Sehari</h2>
+        <p><strong>1. Subuh:</strong> Dilaksanakan sebelum matahari terbit, terdiri daripada 2 rakaat.</p>
+        <p><strong>2. Zohor:</strong> Dilaksanakan selepas tengah hari, terdiri daripada 4 rakaat.</p>
+        <p><strong>3. Asar:</strong> Dilaksanakan pada petang, terdiri daripada 4 rakaat.</p>
+        <p><strong>4. Maghrib:</strong> Dilaksanakan sejurus selepas matahari terbenam, terdiri daripada 3 rakaat.</p>
+        <p><strong>5. Isyak:</strong> Dilaksanakan pada waktu malam, terdiri daripada 4 rakaat.</p>
+    </div>
+    
+    <!-- Kod JavaScript -->
+    <script>
+        function openCamera() {
+            document.getElementById("arScene").style.display = "block";
+        }
+    </script>
+</body>
+</html>
