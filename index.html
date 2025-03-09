@@ -19,14 +19,14 @@
             margin: 0;
             font-family: 'Poppins', sans-serif;
             text-align: center;
-            background: linear-gradient(135deg, #2e003e, #ffcc00);
+            background: linear-gradient(135deg, #2c003e, #ffcc00);
             color: white;
             position: relative;
         }
         
         /* Bar Navigasi */
         nav {
-            background: rgba(46, 0, 62, 0.9);
+            background: rgba(44, 0, 62, 0.9);
             padding: 15px;
             display: flex;
             justify-content: space-between;
@@ -40,6 +40,7 @@
         nav .logo {
             font-size: 24px;
             font-weight: 600;
+            color: #ffcc00;
         }
         nav ul {
             list-style: none;
@@ -64,11 +65,12 @@
         .hero {
             margin-top: 80px;
             text-align: center;
-            padding: 50px 20px;
+            padding: 100px 20px;
         }
         .hero h1 {
             font-size: 48px;
             font-weight: 600;
+            color: #ffcc00;
         }
         .hero p {
             font-size: 18px;
@@ -76,7 +78,7 @@
         }
         .btn {
             background: #ffcc00;
-            color: #2e003e;
+            color: #2c003e;
             padding: 12px 25px;
             margin: 10px;
             cursor: pointer;
@@ -92,45 +94,39 @@
             transform: scale(1.05);
         }
         
-        /* Ruang Kamera */
-        .camera-section {
-            width: 100%;
-            height: 60vh;
-            background: black;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
-            border-radius: 15px;
-        }
-        .ar-container {
-            width: 100%;
-            height: 100%;
-            display: none;
-        }
-        
         /* Bahagian Maklumat Bergulir */
         .info-section {
-            background: rgba(46, 0, 62, 0.95);
+            background: rgba(44, 0, 62, 0.9);
             padding: 50px 20px;
+            margin-top: 50px;
             text-align: left;
         }
         .info-section h2 {
             text-align: center;
+            color: #ffcc00;
         }
         .info-section p {
             font-size: 16px;
             line-height: 1.6;
             color: lightgray;
         }
+        
+        /* Gaya AR Scanner */
+        #ar-container {
+            width: 100%;
+            height: 500px;
+            margin-top: 20px;
+            position: relative;
+        }
     </style>
 </head>
 <body>
+    
     <!-- Bar Navigasi -->
     <nav>
         <div class="logo">SOLAT DALAM AR</div>
         <ul>
-            <li><a href="#" onclick="openCamera()">Buka Kamera</a></li>
+            <li><a href="#" onclick="startAR()">Buka Kamera</a></li>
             <li><a href="#info">Cara Solat</a></li>
             <li><a href="#" onclick="window.close()">Keluar</a></li>
         </ul>
@@ -142,14 +138,14 @@
         <p>Alami realiti tambahan dengan visual solat</p>
     </div>
     
-    <!-- Ruang Kamera -->
-    <div class="camera-section">
-        <div class="ar-container" id="arScene">
-            <a-scene embedded arjs>
-                <a-marker-camera preset="hiro"></a-marker-camera>
-                <a-entity camera></a-entity>
-            </a-scene>
-        </div>
+    <!-- AR Scanner -->
+    <div id="ar-container">
+        <a-scene embedded arjs>
+            <a-marker preset="hiro">
+                <a-box position='0 0.5 0' material='color: yellow;'></a-box>
+            </a-marker>
+            <a-entity camera></a-entity>
+        </a-scene>
     </div>
     
     <!-- Bahagian Maklumat Bergulir -->
@@ -164,8 +160,8 @@
     
     <!-- Kod JavaScript -->
     <script>
-        function openCamera() {
-            document.getElementById("arScene").style.display = "block";
+        function startAR() {
+            alert("Arahkan kamera ke penanda AR untuk melihat model 3D.");
         }
     </script>
 </body>
