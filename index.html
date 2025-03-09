@@ -9,9 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     
-    <!-- Import AR.js & A-Frame -->
+    <!-- Import AR.js, A-Frame & Three.js -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     
     <style>
         /* Gaya Umum */
@@ -21,7 +22,6 @@
             text-align: center;
             background: linear-gradient(135deg, #2c003e, #ffcc00);
             color: white;
-            position: relative;
         }
         
         /* Bar Navigasi */
@@ -47,9 +47,6 @@
             display: flex;
             gap: 20px;
         }
-        nav ul li {
-            display: inline;
-        }
         nav ul li a {
             text-decoration: none;
             color: white;
@@ -64,7 +61,6 @@
         /* Bahagian Hero */
         .hero {
             margin-top: 80px;
-            text-align: center;
             padding: 100px 20px;
         }
         .hero h1 {
@@ -72,29 +68,15 @@
             font-weight: 600;
             color: #ffcc00;
         }
-        .hero p {
-            font-size: 18px;
-            color: lightgray;
-        }
-        .btn {
-            background: #ffcc00;
-            color: #2c003e;
-            padding: 12px 25px;
-            margin: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 30px;
-            transition: 0.3s;
-            border: none;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        }
-        .btn:hover {
-            background: #e6b800;
-            transform: scale(1.05);
+        
+        /* AR Scanner */
+        #ar-container {
+            width: 100%;
+            height: 500px;
+            margin-top: 20px;
         }
         
-        /* Bahagian Maklumat Bergulir */
+        /* Bahagian Maklumat */
         .info-section {
             background: rgba(44, 0, 62, 0.9);
             padding: 50px 20px;
@@ -104,19 +86,6 @@
         .info-section h2 {
             text-align: center;
             color: #ffcc00;
-        }
-        .info-section p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: lightgray;
-        }
-        
-        /* Gaya AR Scanner */
-        #ar-container {
-            width: 100%;
-            height: 500px;
-            margin-top: 20px;
-            position: relative;
         }
     </style>
 </head>
@@ -140,9 +109,9 @@
     
     <!-- AR Scanner -->
     <div id="ar-container">
-        <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;"><!-- Menyelesaikan isu zoom -->
+        <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" renderer="precision: mediump;"> <!-- Betulkan isu zoom -->
             <a-marker type="pattern" url="marker.patt">
-                <a-gltf-model src="praying_model.gltf" scale="0.5 0.5 0.5"></a-gltf-model>
+                <a-entity gltf-model="praying_model.gltf" scale="0.5 0.5 0.5"></a-entity>
             </a-marker>
             <a-entity camera position="0 0 0"></a-entity>
         </a-scene>
@@ -152,11 +121,11 @@
     <!-- Bahagian Maklumat Bergulir -->
     <div class="info-section" id="info">
         <h2>Cara Solat - Lima Waktu Solat Sehari</h2>
-        <p><strong>1. Subuh:</strong> Dilaksanakan sebelum matahari terbit, terdiri daripada 2 rakaat.</p>
-        <p><strong>2. Zohor:</strong> Dilaksanakan selepas tengah hari, terdiri daripada 4 rakaat.</p>
-        <p><strong>3. Asar:</strong> Dilaksanakan pada petang, terdiri daripada 4 rakaat.</p>
-        <p><strong>4. Maghrib:</strong> Dilaksanakan sejurus selepas matahari terbenam, terdiri daripada 3 rakaat.</p>
-        <p><strong>5. Isyak:</strong> Dilaksanakan pada waktu malam, terdiri daripada 4 rakaat.</p>
+        <p><strong>1. Subuh:</strong> Sebelum matahari terbit, 2 rakaat.</p>
+        <p><strong>2. Zohor:</strong> Selepas tengah hari, 4 rakaat.</p>
+        <p><strong>3. Asar:</strong> Petang, 4 rakaat.</p>
+        <p><strong>4. Maghrib:</strong> Selepas matahari terbenam, 3 rakaat.</p>
+        <p><strong>5. Isyak:</strong> Waktu malam, 4 rakaat.</p>
         <button class="btn" onclick="playAudio()">Dengar Panduan Solat</button>
         <audio id="audioGuide" src="prayer_guide.mp3"></audio>
     </div>
@@ -177,3 +146,14 @@
     </script>
 </body>
 </html>
+<script type="module">
+    import { GLTFLoader } from './js/GLTFLoader.js';
+    
+    const loader = new GLTFLoader();
+    loader.load('praying_model.gltf', function (gltf) {
+        scene.add(gltf.scene);
+    }, undefined, function (error) {
+        console.error('Ralat memuatkan model:', error);
+    });
+</script>
+
