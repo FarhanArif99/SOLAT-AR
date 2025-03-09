@@ -2,7 +2,7 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>SOLAT DALAM AR</title>
     
     <!-- Import Fon & Ikon -->
@@ -140,12 +140,13 @@
     
     <!-- AR Scanner -->
     <div id="ar-container">
-        <a-scene embedded arjs>
-            <a-marker preset="hiro">
-                <a-box position='0 0.5 0' material='color: yellow;'></a-box>
+        <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;"><!-- Menyelesaikan isu zoom -->
+            <a-marker type="pattern" url="marker.patt">
+                <a-gltf-model src="praying_model.gltf" scale="0.5 0.5 0.5"></a-gltf-model>
             </a-marker>
-            <a-entity camera></a-entity>
+            <a-entity camera position="0 0 0"></a-entity>
         </a-scene>
+        <button class="btn" onclick="stopAR()">Tutup Kamera</button>
     </div>
     
     <!-- Bahagian Maklumat Bergulir -->
@@ -156,12 +157,22 @@
         <p><strong>3. Asar:</strong> Dilaksanakan pada petang, terdiri daripada 4 rakaat.</p>
         <p><strong>4. Maghrib:</strong> Dilaksanakan sejurus selepas matahari terbenam, terdiri daripada 3 rakaat.</p>
         <p><strong>5. Isyak:</strong> Dilaksanakan pada waktu malam, terdiri daripada 4 rakaat.</p>
+        <button class="btn" onclick="playAudio()">Dengar Panduan Solat</button>
+        <audio id="audioGuide" src="prayer_guide.mp3"></audio>
     </div>
     
     <!-- Kod JavaScript -->
     <script>
         function startAR() {
             alert("Arahkan kamera ke penanda AR untuk melihat model 3D.");
+        }
+        
+        function stopAR() {
+            location.reload();
+        }
+        
+        function playAudio() {
+            document.getElementById("audioGuide").play();
         }
     </script>
 </body>
