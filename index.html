@@ -4,73 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>SOLAT DALAM AR</title>
-    
-    <!-- Import Fon & Ikon -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
-    <!-- Import A-Frame & AR.js (Tanpa VR) -->
+
+    <!-- Import A-Frame & AR.js -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.136.0/examples/js/loaders/GLTFLoader.js"></script>
 
     <style>
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            text-align: center;
             background: linear-gradient(135deg, #2c003e, #ffcc00);
             color: white;
-            position: relative;
-        }
-        nav {
-            background: rgba(44, 0, 62, 0.9);
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 100;
-        }
-        nav .logo {
-            font-size: 24px;
-            font-weight: 600;
-            color: #ffcc00;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-        nav ul li {
-            display: inline;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: white;
-            font-weight: 400;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        nav ul li a:hover {
-            color: #ffcc00;
-        }
-        .hero {
-            margin-top: 80px;
             text-align: center;
-            padding: 100px 20px;
-        }
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 600;
-            color: #ffcc00;
-        }
-        .hero p {
-            font-size: 18px;
-            color: lightgray;
         }
         .btn {
             background: #ffcc00;
@@ -93,58 +38,31 @@
 </head>
 <body>
     
-    <!-- Bar Navigasi -->
-    <nav>
-        <div class="logo">SOLAT DALAM AR</div>
-        <ul>
-            <li><a href="#" onclick="startAR()">Buka Kamera</a></li>
-            <li><a href="#info">Cara Solat</a></li>
-            <li><a href="#" onclick="window.close()">Keluar</a></li>
-        </ul>
-    </nav>
-    
-    <!-- Bahagian Hero -->
-    <div class="hero">
-        <h1>Terokai Solat dalam AR</h1>
-        <p>Alami realiti tambahan dengan visual solat</p>
-    </div>
-    
-    <!-- AR Scanner -->
-    <div id="ar-container">
-        <a-scene embedded arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;">
+    <h1>Terokai Solat dalam AR</h1>
+    <p>Klik "Buka Kamera" dan arahkan kamera ke penanda AR.</p>
+
+    <button class="btn" onclick="startAR()">Buka Kamera</button>
+    <button class="btn" onclick="stopAR()">Tutup Kamera</button>
+
+    <!-- AR Scene -->
+    <div id="ar-container" style="display: none;">
+        <a-scene embedded arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;">
             <a-marker type="pattern" url="marker.patt">
-                <a-entity gltf-model="praying_model.gltf" position="0 0 0" scale="0.5 0.5 0.5"></a-entity>
+                <a-entity gltf-model="praying_model.glb" position="0 0 0" scale="0.5 0.5 0.5"></a-entity>
             </a-marker>
             <a-entity camera></a-entity>
         </a-scene>
-        <button class="btn" onclick="stopAR()">Tutup Kamera</button>
     </div>
 
-    <!-- Bahagian Maklumat Bergulir -->
-    <div class="info-section" id="info">
-        <h2>Cara Solat - Lima Waktu Solat Sehari</h2>
-        <p><strong>1. Subuh:</strong> Dilaksanakan sebelum matahari terbit, terdiri daripada 2 rakaat.</p>
-        <p><strong>2. Zohor:</strong> Dilaksanakan selepas tengah hari, terdiri daripada 4 rakaat.</p>
-        <p><strong>3. Asar:</strong> Dilaksanakan pada petang, terdiri daripada 4 rakaat.</p>
-        <p><strong>4. Maghrib:</strong> Dilaksanakan sejurus selepas matahari terbenam, terdiri daripada 3 rakaat.</p>
-        <p><strong>5. Isyak:</strong> Dilaksanakan pada waktu malam, terdiri daripada 4 rakaat.</p>
-        <button class="btn" onclick="playAudio()">Dengar Panduan Solat</button>
-        <audio id="audioGuide" src="prayer_guide.mp3"></audio>
-    </div>
-
-    <!-- Kod JavaScript -->
     <script>
         function startAR() {
-            alert("Arahkan kamera ke penanda AR untuk melihat model 3D.");
+            document.getElementById("ar-container").style.display = "block";
         }
-        
+
         function stopAR() {
-            location.reload();
-        }
-        
-        function playAudio() {
-            document.getElementById("audioGuide").play();
+            document.getElementById("ar-container").style.display = "none";
         }
     </script>
+
 </body>
 </html>
